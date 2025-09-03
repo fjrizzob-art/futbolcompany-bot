@@ -8,15 +8,39 @@ on:
 jobs:
   post:
     runs-on: ubuntu-latest
+
+    # Exponer secrets a TODOS los pasos (así podemos chequear que existen)
+    env:
+      X_API_KEY: ${{ secrets.X_API_KEY }}
+      X_API_SECRET: ${{ secrets.X_API_SECRET }}
+      X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+      X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Mostrar archivos (confirma que facts.csv y bot.py existen)
+        run: |
+          pwd
+          ls -la
+          ls -la .github/workflows || true
+
+      - name: Verificar que los 4 secrets estén presentes (sin mostrar valores)
+        run: |
+          python - << 'PY'
+          import os
+          for k in ["X_API_KEY","X_API_SECRET","X_ACCESS_TOKEN","X_ACCESS_TOKEN_SECRET"]:
+              print(f"{k} set?:", bool(os.environ.get(k)))
+          PY
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install -r requirements.txt
-      - run: python bot.py
-        env:
-          X_API_KEY: ${{ secrets.X_API_KEY }}
-          X_API_SECRET: ${{ secrets.X_API_SECRET }}
-          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
-          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Ejecutar bot
+        run: python bot.py
