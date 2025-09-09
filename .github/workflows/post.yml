@@ -1,4 +1,4 @@
-name: FutbolCompany Bot
+name: FutbolCompany Bot (Debug)
 
 on:
   schedule:
@@ -13,20 +13,85 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install Tweepy (no requirements.txt)
+      - name: Mostrar repo y branch
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install --retries 5 --timeout 60 tweepy>=4.14.0
+          echo "Ref: $GITHUB_REF"
+          echo "SHA: $GITHUB_SHA"
+          echo "Contenido raíz:"
+          ls -la
+          echo "-- .github/workflows --"
+          ls -la .github/workflows || true
 
-      - name: Run bot
-        run: python bot.py
+      - name: Verificar archivos requeridos
+        run: |
+          for f in bot.py facts.csv; do
+            if [ ! -f "$f" ]; then
+              echo "::error title=Archivo faltante::$f no existe en la raíz del repo."
+              exit 1
+            fi
+          done
+          echo "Primeras líneas de facts.csv:"
+          sed -n '1,5p' facts.csv || true
+          echo "Total de líneas (incluye cabecera):"
+          wc -l facts.csv || true
+
+      - name: Verificar secrets (sin mostrar valores)
         env:
           X_API_KEY: ${{ secrets.X_API_KEY }}
           X_API_SECRET: ${{ secrets.X_API_SECRET }}
           X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
           X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        run: |
+          for s in X_API_KEY X_API_SECRET X_ACCESS_TOKEN X_ACCESS_TOKEN_SECRET; do
+            if [ -z "$(printenv $s)" ]; then
+              echo "::error title=Secret faltante::$s no está configurado o está vacío. (Settings → Secrets → Actions)"
+              exit 1
+            else
+              echo "$s OK"
+            fi
+          done
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar Tweepy
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --retries 5 --timeout 60 tweepy>=4.14.0
+
+      - name: Chequeo rápido de CSV
+        run: |
+          python - <<'PY'
+          import csv, sys
+          with open('facts.csv', encoding='utf-8') as f:
+              rd = csv.reader(f)
+              header = next(rd, None)
+              print('Cabecera CSV:', header)
+              if header is None or [h.strip().lower() for h in header] != ['text','tag','md']:
+                  print('::error ::Cabecera incorrecta. Debe ser exactamente: text,tag,md')
+                  sys.exit(1)
+              n=0
+              for i,row in enumerate(rd, start=2):
+                  if not row: 
+                      continue
+                  text = (row[0] or '').strip()
+                  if not text:
+                      print(f'::error ::Fila {i}: columna "text" vacía')
+                      sys.exit(1)
+                  if len(text) > 280:
+                      print(f'::warning ::Fila {i}: >280 caracteres (se truncará en el bot)')
+                  n += 1
+              print(f'Filas válidas (sin cabecera): {n}')
+          PY
+
+      - name: Ejecutar bot (debug)
+        env:
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        run: |
+          set -e
+          python bot.py
