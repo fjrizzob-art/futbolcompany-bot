@@ -1,4 +1,4 @@
-import os, csv, datetime
+import os, csv, datetime, traceback, sys
 import tweepy
 
 # Carga facts con columnas: text, tag, md (md = "MM-DD" opcional)
@@ -6,6 +6,10 @@ def load_facts(path="facts.csv"):
     facts = []
     with open(path, encoding="utf-8") as f:
         rd = csv.DictReader(f)
+        # Validar cabecera
+        expected = ["text","tag","md"]
+        if [h.strip().lower() for h in rd.fieldnames or []] != expected:
+            raise RuntimeError("Cabecera CSV inválida. Debe ser exactamente: text,tag,md")
         for row in rd:
             text = (row.get("text") or "").strip()
             tag  = (row.get("tag")  or "").strip()
@@ -15,7 +19,7 @@ def load_facts(path="facts.csv"):
                     text = text[:279] + "…"
                 facts.append({"text": text, "tag": tag, "md": md})
     if not facts:
-        raise RuntimeError("facts.csv vacío o mal formateado. Cabecera requerida: text,tag,md")
+        raise RuntimeError("facts.csv no tiene filas válidas (revisa que haya contenido debajo de la cabecera).")
     return facts
 
 # Rotación de temas por franja (puedes ajustarlas)
@@ -56,7 +60,7 @@ def post_to_x(text):
     required = ["X_API_KEY","X_API_SECRET","X_ACCESS_TOKEN","X_ACCESS_TOKEN_SECRET"]
     missing = [k for k in required if not os.environ.get(k)]
     if missing:
-        raise RuntimeError(f"Faltan secrets: {', '.join(missing)}")
+        raise RuntimeError(f"Faltan secrets: {', '.join(missing)} (crea/pega en Settings → Secrets → Actions)")
 
     client = tweepy.Client(
         consumer_key=os.environ["X_API_KEY"],
@@ -64,11 +68,24 @@ def post_to_x(text):
         access_token=os.environ["X_ACCESS_TOKEN"],
         access_token_secret=os.environ["X_ACCESS_TOKEN_SECRET"]
     )
-    resp = client.create_tweet(text=text)
-    print("Publicado:", resp)
+    try:
+        resp = client.create_tweet(text=text)
+        print("Publicado:", resp)
+    except Exception as e:
+        # Mostrar info útil del error
+        print("::error ::Error al publicar en X")
+        if hasattr(e, "response") and getattr(e.response, "text", None):
+            print("Respuesta de X:", e.response.text)
+        traceback.print_exc()
+        sys.exit(1)
 
 if __name__ == "__main__":
-    facts = load_facts()
-    tweet = pick_today(facts)
-    print("Tweet seleccionado:", tweet)
-    post_to_x(tweet)
+    try:
+        facts = load_facts()
+        tweet = pick_today(facts)
+        print("Tweet seleccionado:", tweet)
+        post_to_x(tweet)
+    except Exception as e:
+        print("::error ::Fallo en bot.py:", repr(e))
+        traceback.print_exc()
+        sys.exit(1)
