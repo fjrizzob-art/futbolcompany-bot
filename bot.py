@@ -5,20 +5,20 @@ import tweepy
 # CONFIG
 # =========
 
-# Estilos por tag: prefijo + 1 hashtag (puedes cambiar textos/emojis/hashtags)
+# Prefijos por tag (EMOJIS + abreviaturas) — sin hashtags
 STYLES = {
-    "Mundial":       {"prefix": "🌍 Mundial",             "hashtag": "#Mundial"},
-    "Champions":     {"prefix": "⭐️ Champions League",    "hashtag": "#UCL"},
-    "Libertadores":  {"prefix": "🏆 Libertadores",         "hashtag": "#Libertadores"},
-    "Eliminatorias": {"prefix": "🛤️ Eliminatorias",       "hashtag": "#Eliminatorias"},
-    "Historia":      {"prefix": "📚 Historia del Fútbol", "hashtag": "#HistoriaDelFútbol"},
-    "_default":      {"prefix": "⚽️ Fútbol",              "hashtag": "#Fútbol"},
+    "Mundial":       {"prefix": "🌍 WC"},
+    "Champions":     {"prefix": "⭐️ UCL"},
+    "Libertadores":  {"prefix": "🏆 LIB"},
+    "Eliminatorias": {"prefix": "🛤️ ELIM"},
+    "Historia":      {"prefix": "📚 HIST"},
+    "_default":      {"prefix": "⚽️ Fútbol"},
 }
 
-# Firma fija al final de TODOS los tuits (ajústala si quieres)
+# Firma fija al final de TODOS los tuits
 SIGNATURE = " — ⚽️ FútbolCompany"
 
-# Rotación de temas por franja (puedes modificar el orden)
+# Rotación de temas por franja (ajustable)
 MORNING_ORDER   = ["Mundial", "Champions", "Libertadores", "Eliminatorias", "Historia"]
 AFTERNOON_ORDER = ["Libertadores", "Mundial", "Champions", "Eliminatorias", "Historia"]
 
@@ -32,7 +32,6 @@ def load_facts(path="facts.csv"):
     facts = []
     with open(path, encoding="utf-8") as f:
         rd = csv.DictReader(f)
-        # Validar cabecera mínima
         expected = ["text","tag","md"]
         if [h.strip().lower() for h in (rd.fieldnames or [])] != expected:
             raise RuntimeError("Cabecera CSV inválida. Debe ser exactamente: text,tag,md")
@@ -89,19 +88,15 @@ def pick_today(facts):
 
 def format_tweet(text, tag, is_efemeride=False):
     """
-    Arma el tuit final con:
-      [Prefijo según tag] — [texto truncado si hace falta] [#hashtag] [firma]
-    Si es efemérides, añade '· 📅 Un día como hoy' en el prefijo.
-    Todo respetando el límite de 280 caracteres.
+    [Prefijo por tag (+ '· 📅 Un día como hoy' si aplica)] — [texto] [firma]
+    Sin hashtags. Se respeta límite de 280 caracteres.
     """
-    style   = STYLES.get(tag, STYLES["_default"])
-    prefix  = style["prefix"] + (" · 📅 Un día como hoy" if is_efemeride else "")
-    hashtag = style.get("hashtag") or ""
+    style  = STYLES.get(tag, STYLES["_default"])
+    prefix = style["prefix"] + (" · 📅 Un día como hoy" if is_efemeride else "")
+    sep    = " — "
+    tail   = SIGNATURE
 
-    sep   = " — "
-    tail  = ((" " + hashtag) if hashtag else "") + SIGNATURE
-
-    # Calcular espacio disponible para el texto
+    # Espacio disponible para el cuerpo
     allowed = 280 - len(prefix) - len(sep) - len(tail)
     if allowed < 0:
         allowed = 0
@@ -109,10 +104,7 @@ def format_tweet(text, tag, is_efemeride=False):
     main = text
     if len(main) > allowed:
         ell = "…"
-        if allowed > len(ell):
-            main = main[:allowed - len(ell)] + ell
-        else:
-            main = main[:allowed]  # Si no hay espacio ni para la elipsis
+        main = main[:max(0, allowed - len(ell))] + (ell if allowed > 0 else "")
 
     return f"{prefix}{sep}{main}{tail}"
 
@@ -145,7 +137,7 @@ if __name__ == "__main__":
     facts = load_facts()
     fact  = pick_today(facts)
 
-    # Detectar si es efemérides (por el campo md)
+    # Detectar si es efeméride (por el campo md)
     today_md = datetime.datetime.utcnow().strftime("%m-%d")
     is_efe   = (fact.get("md") or "") == today_md
 
