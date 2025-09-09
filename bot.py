@@ -1,24 +1,14 @@
 import os, csv, datetime
 import tweepy
 
-# =========
+# ========
 # CONFIG
-# =========
-
-# Prefijos por tag (EMOJIS + abreviaturas) — sin hashtags
-STYLES = {
-    "Mundial":       {"prefix": "🌍 WC"},
-    "Champions":     {"prefix": "⭐️ UCL"},
-    "Libertadores":  {"prefix": "🏆 LIB"},
-    "Eliminatorias": {"prefix": "🛤️ ELIM"},
-    "Historia":      {"prefix": "📚 HIST"},
-    "_default":      {"prefix": "⚽️ Fútbol"},
-}
+# ========
 
 # Firma fija al final de TODOS los tuits
 SIGNATURE = " — ⚽️ FútbolCompany"
 
-# Rotación de temas por franja (ajustable)
+# Rotación de temas por franja (se usan para elegir, no para mostrar)
 MORNING_ORDER   = ["Mundial", "Champions", "Libertadores", "Eliminatorias", "Historia"]
 AFTERNOON_ORDER = ["Libertadores", "Mundial", "Champions", "Eliminatorias", "Historia"]
 
@@ -27,7 +17,7 @@ AFTERNOON_ORDER = ["Libertadores", "Mundial", "Champions", "Eliminatorias", "His
 # CARGA CSV
 # =========
 
-# CSV con cabecera: text,tag,md   (md = "MM-DD" opcional)
+# CSV con cabecera EXACTA: text,tag,md   (md = "MM-DD" opcional)
 def load_facts(path="facts.csv"):
     facts = []
     with open(path, encoding="utf-8") as f:
@@ -37,12 +27,12 @@ def load_facts(path="facts.csv"):
             raise RuntimeError("Cabecera CSV inválida. Debe ser exactamente: text,tag,md")
         for row in rd:
             text = (row.get("text") or "").strip()
-            tag  = (row.get("tag")  or "").strip()
+            tag  = (row.get("tag")  or "").strip()  # usado para seleccionar, NO para mostrar
             md   = (row.get("md")   or "").strip()  # ej: 07-16
             if text:
                 facts.append({"text": text, "tag": tag, "md": md})
     if not facts:
-        raise RuntimeError("facts.csv no tiene filas válidas (revisa que haya contenido debajo de la cabecera).")
+        raise RuntimeError("facts.csv no tiene filas válidas (revisa que haya contenido bajo la cabecera).")
     return facts
 
 
@@ -51,7 +41,7 @@ def load_facts(path="facts.csv"):
 # =================
 
 def pick_today(facts):
-    """Devuelve el dict del fact seleccionado (no solo el texto)."""
+    """Devuelve el dict del fact seleccionado (usa tag/md solo para elegir)."""
     today = datetime.datetime.utcnow().date()
     md_today = today.strftime("%m-%d")
 
@@ -86,27 +76,20 @@ def pick_today(facts):
 # FORMATEO DEL TUIT
 # ===================
 
-def format_tweet(text, tag, is_efemeride=False):
+def format_tweet(text, is_efemeride=False):
     """
-    [Prefijo por tag (+ '· 📅 Un día como hoy' si aplica)] — [texto] [firma]
-    Sin hashtags. Se respeta límite de 280 caracteres.
+    Sin mostrar el tag. Si es efeméride, antepone '📅 Un día como hoy — '.
+    Siempre añade la firma final. Máximo 280 caracteres.
     """
-    style  = STYLES.get(tag, STYLES["_default"])
-    prefix = style["prefix"] + (" · 📅 Un día como hoy" if is_efemeride else "")
-    sep    = " — "
-    tail   = SIGNATURE
-
-    # Espacio disponible para el cuerpo
-    allowed = 280 - len(prefix) - len(sep) - len(tail)
+    header = "📅 Un día como hoy — " if is_efemeride else ""
+    allowed = 280 - len(header) - len(SIGNATURE)
     if allowed < 0:
         allowed = 0
-
     main = text
     if len(main) > allowed:
         ell = "…"
         main = main[:max(0, allowed - len(ell))] + (ell if allowed > 0 else "")
-
-    return f"{prefix}{sep}{main}{tail}"
+    return f"{header}{main}{SIGNATURE}"
 
 
 # ================
@@ -141,6 +124,6 @@ if __name__ == "__main__":
     today_md = datetime.datetime.utcnow().strftime("%m-%d")
     is_efe   = (fact.get("md") or "") == today_md
 
-    tweet = format_tweet(fact["text"], fact.get("tag",""), is_efemeride=is_efe)
+    tweet = format_tweet(fact["text"], is_efemeride=is_efe)
     print("Tweet seleccionado:", tweet)
     post_to_x(tweet)
