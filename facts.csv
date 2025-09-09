@@ -55,34 +55,65 @@ text,tag,md
 "Nace Per Mertesacker (1984), campeón del mundo 2014 con Alemania.","Historia","09-29"
 "Nace Olivier Giroud (1986), campeón del mundo 2018 y máximo goleador histórico de Francia.","Historia","09-30"
 "Nace Frank Rijkaard (1962), leyenda del Milan/Ajax y DT campeón de Europa con Barcelona (2006).","Historia","09-30"
-"1977: Pelé se despide en un amistoso Cosmos–Santos en el Giants Stadium. Juega un tiempo con cada equipo y marca de tiro libre ante 75k+ personas.",Historia,10-01
-"2019 (UCL): Barça 2–1 Inter. Remontada con dos golazos de Suárez (uno de volea) y asistencia de Messi.",Champions,10-02
-"1981: Nace Zlatan Ibrahimović (Malmö). 500+ goles oficiales y títulos en Países Bajos, Italia, España, Francia, Inglaterra y EE. UU.",Historia,10-03
-"1980: Nace Tomáš Rosický, 'Pequeño Mozart'. Referente de Dortmund y Arsenal; 100+ partidos con Chequia.",Historia,10-04
-"2017 (CONMEBOL): Argentina 0–0 Perú en La Bombonera. La clasificación albiceleste quedaría sellada días después en Quito.",Eliminatorias,10-05
-"2001 (UEFA): Inglaterra 2–2 Grecia. Tiro libre de Beckham al 93' que manda a los Three Lions al WC 2002.",Eliminatorias,10-06
-"2012 (LaLiga): Barça 2–2 Real Madrid. Dobletes de Messi (incluye un tiro libre) y Cristiano en un Clásico memorable.",Historia,10-07
-"1997: Nace Steven Bergwijn (Ámsterdam). Extremo neerlandés formado en Ajax/PSV; internacional con la Oranje.",Historia,10-08
-"1967: Nace Gheorghe Popescu. Capitán rumano, campeón de la Recopa con Barça (1997).",Historia,10-09
-"2017 (CONCACAF): Trinidad y Tobago 2–1 EE. UU. Los estadounidenses quedan fuera del WC 2018 por primera vez desde 1986.",Eliminatorias,10-10
-"2013 (CONCACAF): México 2–1 Panamá. Chilena histórica de Raúl Jiménez al 85' que mantiene con vida al Tri rumbo a Brasil 2014.",Eliminatorias,10-11
-"1996 (LaLiga): Ronaldo Nazário firma su icónica jugada maradoniana ante Compostela con el Barça.",Historia,10-12
-"1979: Nace Wes Brown (Mánchester). Defensa multi-campeón con el Manchester United (incluye 2 Champions).",Historia,10-13
-"2019: Cristiano Ronaldo alcanza los 700 goles oficiales con Portugal ante Ucrania (clasificatorio Euro).",Historia,10-14
-"1988: Nace Mesut Özil (Gelsenkirchen). 2014 campeón del mundo; además hoy cumple Didier Deschamps (1968), capitán en 1998 y DT en 2018.",Historia,10-15
-"2004: Debuta Lionel Messi en Primera con el Barça (vs Espanyol). Inicio oficial de una era.",Historia,10-16
-"1976: Nace Sebastián 'Loco' Abreu. Récord Guinness por jugar en 30+ clubes y campeón de América con Uruguay (2011).",Historia,10-17
-"2017 (UCL): Chelsea 3–3 Roma. Džeko y Hazard firman dobletes en un partidazo en Stamford Bridge.",Champions,10-18
-"2016 (UCL): Barça 4–0 Manchester City. Hat-trick de Messi ante el City de Guardiola.",Champions,10-19
-"2010 (UCL): Inter 4–3 Tottenham. Hat-trick de Gareth Bale en San Siro en una noche de culto.",Champions,10-20
-"1992 (Copa de Europa): Rangers 2–1 Leeds en Ibrox, ‘Battle of Britain’ en la vieja Copa de Europa.",Champions,10-21
-"1969 (Intercontinental): Estudiantes–Milan, vuelta durísima en La Bombonera que marcó la época por su violencia.",Historia,10-22
-"2011 (Premier): Manchester United 1–6 Manchester City en Old Trafford. Statement win de los Citizens.",Historia,10-23
-"1985: Nace Wayne Rooney (Liverpool). Goleador histórico del Manchester United (253).",Historia,10-24
-"2014 (LaLiga): Real Madrid 3–1 Barcelona. Debut oficial de Luis Suárez con el Barça (asiste el 0–1 de Neymar).",Historia,10-25
-"1863: Nace la FA en Londres. Se codifican las primeras Reglas del Juego modernas.",Historia,10-26
-"2013 (Serie A): Roma vence a Udinese y establece récord de 9 triunfos seguidos para iniciar la liga.",Historia,10-27
-"2012 (Premier): Chelsea 2–3 Manchester United. Partido polémico con dos rojas al local en Stamford Bridge.",Historia,10-28
-"2008 (Premier): Arsenal 4–4 Tottenham. El derbi del 4-4 en el Emirates con remontada agónica de Spurs.",Historia,10-29
-"1960: Nace Diego Armando Maradona. Campeón del mundo 1986 y mito eterno del fútbol.",Historia,10-30
-"1997: Nace Marcus Rashford (Mánchester). Delantero del United y la selección inglesa.",Historia,10-31
+"Despedida de Pelé (1977): amistoso Cosmos–Santos en el Giants Stadium; jugó un tiempo con cada equipo y marcó de tiro libre.","Historia","10-01"
+"Nace George Weah (1966): Balón de Oro 1995, leyenda del Milan y luego presidente de Liberia.","Historia","10-01"
+"Barça 2–1 Inter (2019, UCL): remontada en el Camp Nou con dos golazos de Luis Suárez; Lautaro había adelantado al Inter.","Champions","10-02"
+"Nace Tammy Abraham (1997): canterano del Chelsea, figura en Roma y la selección inglesa.","Historia","10-02"
+"Nace Zlatan Ibrahimović (1981): 500+ goles oficiales y títulos en varias ligas europeas.","Historia","10-03"
+"Nace Kepa Arrizabalaga (1994): en 2018 se convirtió en el arquero más caro de la historia (80 M€).","Historia","10-03"
+"Nace Tomáš Rosický (1980): ‘Pequeño Mozart’, talento de Dortmund, Arsenal y la selección checa.","Historia","10-04"
+"Nace Jorge Valdano (1955): campeón del mundo 1986 con Argentina; luego DT y dirigente.","Historia","10-04"
+"Argentina 0–0 Perú (2017): Bombonera a tope y drama rumbo a Rusia 2018 en Eliminatorias CONMEBOL.","Eliminatorias","10-05"
+"Nace Careca (1960): ‘9’ de Brasil y socio de Maradona en el Napoli campeón.","Historia","10-05"
+"Inglaterra 2–2 Grecia (2001): tiro libre de Beckham al 93’ que sella el pase al Mundial 2002.","Eliminatorias","10-06"
+"Nace Niall Quinn (1966): referente de Irlanda y del Sunderland; delantero de área.","Historia","10-06"
+"Clásico 2–2 (2012): Messi y Cristiano firmaron dobletes en el Camp Nou en un duelo de época.","Historia","10-07"
+"Nace Trent Alexander-Arnold (1998): lateral con pie de ‘10’; cambios de orientación y balón parado de élite.","Historia","10-07"
+"Jürgen Klopp llega al Liverpool (2015): inicio de la era que traerá Champions y Premier a Anfield.","Historia","10-08"
+"Nace Steven Bergwijn (1997): extremo neerlandés de potencia; PSV, Spurs y la Oranje.","Historia","10-08"
+"Nace Gheorghe Popescu (1967): capitán de la gran Rumanía de los 90 y del Barça de Cruyff.","Historia","10-09"
+"Nace Mark Viduka (1975): goleador potente; etapas en Celtic, Leeds y la selección australiana.","Historia","10-09"
+"Trinidad y Tobago 2–1 EE. UU. (2017): el ‘partido de Couva’ deja a USA sin Mundial 2018.","Eliminatorias","10-10"
+"Nace Tony Adams (1966): capitán histórico del Arsenal; emblema gunner.","Historia","10-10"
+"México 2–1 Panamá (2013): chilena de Raúl Jiménez al 85’ mantiene con vida el camino a Brasil 2014.","Eliminatorias","10-11"
+"Santos 5–2 Benfica (1962): exhibición en Lisboa con hat-trick de Pelé; título Intercontinental para Santos.","Historia","10-11"
+"‘Gol de Compostela’ (1996): Ronaldo Nazário apila rivales desde mitad de cancha y define con el Barça.","Historia","10-12"
+"Nace Bafétimbi Gomis (1985): goleador francés de celebraciones felinas; Lyon, Swansea, Galatasaray.","Historia","10-12"
+"Nace Jerzy Dudek (1973): héroe de Estambul 2005; sus ‘spaghetti legs’ en los penales dieron la 5ª al Liverpool.","Historia","10-13"
+"Nace Laurent Blanc (1965): campeón del mundo 1998 con Francia; defensor elegante y líder.","Historia","10-13"
+"Cristiano alcanza 700 goles oficiales (2019): lo marca con Portugal ante Ucrania.","Historia","10-14"
+"Nace Shola Ameobi (1981): ídolo del Newcastle; especialista en derbis y goles clave.","Historia","10-14"
+"Nace Mesut Özil (1988): maestro del pase filtrado; visión periférica y pausa.","Historia","10-15"
+"Nace Didier Deschamps (1968): campeón del mundo como jugador (1998) y seleccionador (2018).","Historia","10-15"
+"Debuta Lionel Messi en Primera (2004): 8 minutos ante Espanyol con 17 años; inicio de una leyenda.","Historia","10-16"
+"Nace Paulo Roberto Falcão (1953): mito de Brasil y de la Roma; mediocentro elegante.","Historia","10-16"
+"Nace Sebastián ‘Loco’ Abreu (1976): récord Guinness de clubes y ‘Panenka’ decisiva con Uruguay en 2010.","Historia","10-17"
+"Nace Park Chu-Young (1985): referente surcoreano con pasos por Mónaco y Arsenal.","Historia","10-17"
+"Chelsea 3–3 Roma (2017, UCL): partidazo en Stamford Bridge; Džeko y Hazard con dobletes.","Champions","10-18"
+"Nace Gianluca Zambrotta (1977): lateral campeón del mundo 2006; polivalente por ambas bandas.","Historia","10-18"
+"Barcelona 4–0 Man. City (2016, UCL): hat-trick de Messi y show en el Camp Nou ante el City de Guardiola.","Champions","10-19"
+"Nace Jonny Evans (1988): zaguero norirlandés de larga trayectoria en la Premier.","Historia","10-19"
+"Inter 4–3 Tottenham (2010, UCL): hat-trick descomunal de Gareth Bale en el Meazza.","Champions","10-20"
+"Nace Ian Rush (1961): goleador histórico del Liverpool y leyenda de Gales.","Historia","10-20"
+"Rangers 2–1 Leeds (1992): primer asalto de la ‘Battle of Britain’ en Ibrox por la vieja Copa de Europa.","Champions","10-21"
+"Nace Nemanja Vidić (1981): bastión del United de Ferguson; fiereza y lectura impecable.","Historia","10-21"
+"Estudiantes–Milan (1969): vuelta Intercontinental durísima en La Plata; consagración y polémica.","Historia","10-22"
+"Nacen Lev Yashin (1929) y Arsène Wenger (1949): ‘La Araña Negra’ y el DT que modernizó al Arsenal.","Historia","10-22"
+"Man. United 1–6 Man. City (2011): terremoto en Old Trafford; el City anuncia su era en la Premier.","Historia","10-23"
+"Nace Pelé (1940): para muchos, el mejor de todos; tricampeón del mundo con Brasil.","Historia","10-23"
+"Nace Wayne Rooney (1985): máximo goleador histórico del Manchester United; emblema de Inglaterra.","Historia","10-24"
+"Nace Edson Álvarez (1997): mediocentro mexicano de jerarquía; América, Ajax, West Ham y el Tri.","Historia","10-24"
+"Real Madrid 3–1 Barcelona (2014): remontada en el Bernabéu con Cristiano, Pepe y Benzema; debut liguero de Suárez en el Barça.","Historia","10-25"
+"Nace Dominik Szoboszlai (2000): mediapunta húngaro de golpeo limpio; salto al Liverpool.","Historia","10-25"
+"26/10/1863: se funda The Football Association en Londres; nacen las Reglas del Juego modernas.","Historia","10-26"
+"Chelsea 0–1 Liverpool (2008): fin a 86 partidos de invicto liguero del Chelsea en Stamford Bridge; gol de Xabi Alonso.","Historia","10-26"
+"Udinese 0–1 Roma (2013): gol de Michael Bradley; Roma inicia la Serie A con 9 victorias seguidas (récord).","Historia","10-27"
+"Nace Stephan El Shaarawy (1992): ‘Faraón’ del Milan y la Azzurra; diagonal y remate letal.","Historia","10-27"
+"Chelsea 2–3 Man. United (2012): partido polémico con dos rojas al local; gol decisivo de ‘Chicharito’.","Historia","10-28"
+"Nace Garrincha (1933): el drible hecho jugador; bicampeón del mundo con Brasil (1958, 1962).","Historia","10-28"
+"Arsenal 4–4 Tottenham (2008): empate épico con volea de Bentley y 2 goles finales de Spurs en el 89’ y 90+4’.","Historia","10-29"
+"Nace Edwin van der Sar (1970): arquero campeón de Europa con Ajax (1995) y United (2008).","Historia","10-29"
+"Nace Diego Armando Maradona (1960): campeón del mundo 1986 y mito eterno del fútbol.","Historia","10-30"
+"Nace Sean Longstaff (1997): mediocampista del Newcastle formado en la casa.","Historia","10-30"
+"Nace Marcus Rashford (1997): atacante del United y activista social; goles y liderazgo.","Historia","10-31"
+"Nace Marco van Basten (1964): tricampeón de Europa (club y selección) y autor de la volea de 1988.","Historia","10-31"
