@@ -41,35 +41,41 @@ def load_facts(path="facts.csv"):
 # =================
 
 def pick_today(facts):
-    """Devuelve el dict del fact seleccionado (usa tag/md solo para elegir)."""
+    """Devuelve el dict del fact seleccionado usando 2 slots diarios (08:00 y 10:00 GYE)."""
+    import datetime
     today = datetime.datetime.utcnow().date()
     md_today = today.strftime("%m-%d")
 
-    # Índice determinístico por día (sin estado)
+    # Índice determinístico por día
     base = datetime.date(2025, 1, 1)
     day_idx = (today - base).days  # 0,1,2,...
 
-    # Bucket horario: mañana (<17 UTC) o tarde (>=17 UTC)
+    # Slots en UTC que usa tu workflow: 13 (08:00 GYE) y 15 (10:00 GYE)
+    SLOTS_UTC = [13, 15]
     hour = datetime.datetime.utcnow().hour
-    morning = hour < 17
+    # slot = 0 para 13 UTC, slot = 1 para 15 UTC (si se dispara manualmente, aproximamos)
+    slot = SLOTS_UTC.index(hour) if hour in SLOTS_UTC else (0 if hour < SLOTS_UTC[-1] else 1)
 
-    # 1) Efemérides primero
+    # 1) Efemérides primero (rota entre varias usando slot)
     efes = [f for f in facts if f.get("md") == md_today]
     if efes:
-        idx = day_idx % len(efes)
+        idx = (day_idx * 2 + slot) % len(efes)
         return efes[idx]
 
-    # 2) Rotación por tema si no hay efemérides
-    order = MORNING_ORDER if morning else AFTERNOON_ORDER
-    theme = order[day_idx % len(order)]
+    # 2) Rotación por tema (si no hay efemérides)
+    MORNING_ORDER   = ["Mundial", "Champions", "Libertadores", "Eliminatorias", "Historia"]
+    AFTERNOON_ORDER = MORNING_ORDER  # mismo orden; no usamos “tarde” con estos horarios
+    order = MORNING_ORDER  # ambos disparos están en la mañana UTC
+    theme = order[(day_idx * 2 + slot) % len(order)]
     themed = [f for f in facts if (f.get("tag") or "").lower() == theme.lower()]
     if themed:
-        idx = (day_idx // len(order)) % len(themed)
+        idx = (day_idx * 2 + slot) % len(themed)
         return themed[idx]
 
-    # 3) Fallback total: round-robin global (dos tuits por día)
-    idx_global = (day_idx * 2 + (0 if morning else 1)) % len(facts)
+    # 3) Fallback total: round-robin global en 2 pasos diarios
+    idx_global = (day_idx * 2 + slot) % len(facts)
     return facts[idx_global]
+
 
 
 # ===================
